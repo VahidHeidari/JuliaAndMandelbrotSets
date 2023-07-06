@@ -23,17 +23,17 @@ Mandelbrot set:
 
 Julia sets:
 
-![Julia set](Images/julia/0.28,0.01-0.00,0.00-0.70?raw=true "Julia set")
+![Julia set](Images/julia/0.28,0.01-0.00,0.00-0.70.jpg?raw=true "Julia set")
 
-![Julia set](Images/julia/-0.10,0.65-0.00,0.00-0.70?raw=true "Julia set")
+![Julia set](Images/julia/-0.10,0.65-0.00,0.00-0.70.jpg?raw=true "Julia set")
 
-![Julia set](Images/julia/-0.40,0.60-0.00,0.00-0.70?raw=true "Julia set")
+![Julia set](Images/julia/-0.40,0.60-0.00,0.00-0.70.jpg?raw=true "Julia set")
 
-![Julia set](Images/julia/-0.53,-0.53-0.00,0.00-0.70?raw=true "Julia set")
+![Julia set](Images/julia/-0.53,-0.53-0.00,0.00-0.70.jpg?raw=true "Julia set")
 
-![Julia set](Images/julia/-0.73,0.19-0.00,0.00-0.70?raw=true "Julia set")
+![Julia set](Images/julia/-0.73,0.19-0.00,0.00-0.70.jpg?raw=true "Julia set")
 
-![Julia set](Images/julia/-0.75,0.11-0.00,0.00-0.70?raw=true "Julia set")
+![Julia set](Images/julia/-0.75,0.11-0.00,0.00-0.70.jpg?raw=true "Julia set")
 
-![Julia set](Images/julia/-0.80,0.16-0.00,0.00-0.70?raw=true "Julia set")
+![Julia set](Images/julia/-0.80,0.16-0.00,0.00-0.70.jpg?raw=true "Julia set")
 
