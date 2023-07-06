@@ -14,11 +14,11 @@ sets in Python.
 ==============
 Mandelbrot set:
 
-![Mandelbrot set](Images/mandelbrot/-0.50-0.00-1.00.jpb?raw=true "Mandelbrot set")
+![Mandelbrot set](Images/mandelbrot/-0.50-0.00-1.00.jpg?raw=true "Mandelbrot set")
 
-![Mandelbrot set](Images/mandelbrot/-0.73-0.24-100.00.jpb?raw=true "Mandelbrot set")
+![Mandelbrot set](Images/mandelbrot/-0.73-0.24-100.00.jpg?raw=true "Mandelbrot set")
 
-![Mandelbrot set](Images/mandelbrot/-0.73-0.22-200.00.jpb?raw=true "Mandelbrot set")
+![Mandelbrot set](Images/mandelbrot/-0.73-0.22-200.00.jpg?raw=true "Mandelbrot set")
 
 
 Julia sets:
