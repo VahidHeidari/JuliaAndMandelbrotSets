@@ -4,11 +4,13 @@ import bitmap
 
 
 
-#IMG_SCALE           = 1
-IMG_SCALE           = 2
-IMG_WIDTH           = 320 * IMG_SCALE
-IMG_HEIGHT          = 240 * IMG_SCALE
+IMG_SCALE           = 1
+#IMG_SCALE           = 2
+#IMG_SCALE           = 0.5
+IMG_WIDTH           = int(320 * IMG_SCALE)
+IMG_HEIGHT          = int(240 * IMG_SCALE * 2)
 
+NUM_FRAMES          = 30
 MAX_ITER            = 200
 ESCAPE_RADIUS       = 2
 ESCAPE_RADIUS_2     = ESCAPE_RADIUS ** 2
@@ -20,7 +22,7 @@ COLORS = [
     (0x00, 0xff, 0x00),         # Green
     (0xff, 0x00, 0xff),         # Violet
     (0xff, 0x00, 0x00),         # Red
-    (0x00, 0xff, 0xff),         # Violet
+    (0x00, 0xff, 0xff),         # Cyan / Aqua
     (0x00, 0x00, 0x00),         # Black
 ]
 COLOR_DIV = float(MAX_ITER) / (len(COLORS) - 1)
@@ -76,14 +78,7 @@ def GetColor(c, z_r=0, z_i=0):
     return 0
 
 
-def DrawMandelbrotSet(x, y, zoom):
-    out_name = '%0.2f-%0.2f-%0.2f.bmp' % (x, y, zoom)
-    out_path = os.path.join('mandelbrot', out_name)
-    if not os.path.isdir('mandelbrot'):
-        os.makedirs('mandelbrot')
-
-    bw = bitmap.BitmapWriter(IMG_WIDTH, IMG_HEIGHT)
-
+def FillBitmap(bw, x, y, zoom):
     scale = 2.0 / min(bw.GetWidth(), bw.GetHeight()) / zoom
     x = x_start = x - (bw.GetWidth() / 2.0) * scale
     y = y + (bw.GetHeight() / 2.0) * scale
@@ -97,7 +92,36 @@ def DrawMandelbrotSet(x, y, zoom):
         x = x_start
         y -= scale
 
+
+def DrawMandelbrotSet(x, y, zoom):
+    bw = bitmap.BitmapWriter(IMG_WIDTH, IMG_HEIGHT)
+    FillBitmap(bw, x, y, zoom)
+    DrawCross(bw)
+
+    out_name = '%0.2f-%0.2f-%0.2f.bmp' % (x, y, zoom)
+    out_path = os.path.join('mandelbrot', out_name)
+    if not os.path.isdir('mandelbrot'):
+        os.makedirs('mandelbrot')
     bw.Save(out_path)
+
+
+def DrawCross(bw):
+    for j in range(bw.GetHeight()):
+        bw.PutPixelInt(bw.GetWidth() // 2, j, 0xff0000)
+    for i in range(bw.GetWidth()):
+        bw.PutPixelInt(i, bw.GetHeight() // 2, 0xff0000)
+
+
+def AnimateMandelbrotSet(x, y):
+    base_dir = os.path.join('mandelbrot', 'animated')
+    if not os.path.isdir(base_dir):
+        os.makedirs(base_dir)
+
+    bw = bitmap.BitmapWriter(IMG_WIDTH, IMG_HEIGHT)
+    for frm in range(1, NUM_FRAMES + 1):
+        zoom = frm ** 2
+        FillBitmap(bw, x, y, zoom)
+        bw.Save(os.path.join(base_dir, '%03d.bmp' % frm))
 
 
 
@@ -107,6 +131,8 @@ def DoMain():
     DrawMandelbrotSet(-0.725, 0.2, 40)
     DrawMandelbrotSet(-0.73, 0.24, 100)
     DrawMandelbrotSet(-0.733, 0.221, 200)
+
+    AnimateMandelbrotSet(-0.73255, 0.24115)
 
 
 if __name__ == '__main__':

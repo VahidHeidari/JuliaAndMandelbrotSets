@@ -1,18 +1,16 @@
 import os
+import math
 
 import bitmap
 import mandelbrot
 
 
 
-def DrawJulia(x, y, zoom, cr, ci):
-    out_name = '%0.2f,%0.2f-%0.2f,%0.2f-%0.2f.bmp' % (cr, ci, x, y, zoom)
-    out_path = os.path.join('julia', out_name)
-    if not os.path.isdir('julia'):
-        os.makedirs('julia')
+NUM_FRAMES = 30 * 4
 
-    bw = bitmap.BitmapWriter(mandelbrot.IMG_WIDTH, mandelbrot.IMG_HEIGHT)
 
+
+def FillBitmap(bw, x, y, zoom, cr, ci):
     scale = 2.0 / min(bw.GetWidth(), bw.GetHeight()) / zoom
     x = x_start = x - (bw.GetWidth() / 2.0) * scale
     y = y + (bw.GetHeight() / 2.0) * scale
@@ -26,7 +24,43 @@ def DrawJulia(x, y, zoom, cr, ci):
         x = x_start
         y -= scale
 
+
+def DrawJulia(x, y, zoom, cr, ci):
+    out_name = '%0.2f,%0.2f-%0.2f,%0.2f-%0.2f.bmp' % (cr, ci, x, y, zoom)
+    out_path = os.path.join('julia', out_name)
+    if not os.path.isdir('julia'):
+        os.makedirs('julia')
+
+    bw = bitmap.BitmapWriter(mandelbrot.IMG_WIDTH, mandelbrot.IMG_HEIGHT)
+    FillBitmap(bw, x, y, zoom, cr, ci)
     bw.Save(out_path)
+
+
+def DrawJuliaXY(x1, y1, x2, y2):
+    base_dir = os.path.join('julia', 'animated')
+    if not os.path.isdir(base_dir):
+        os.makedirs(base_dir)
+    bw = bitmap.BitmapWriter(mandelbrot.IMG_WIDTH, mandelbrot.IMG_HEIGHT)
+    for i in range(NUM_FRAMES):
+        cx = x1 + (x2 - x1) / float(NUM_FRAMES) * i
+        cy = y1 + (y2 - y1) / float(NUM_FRAMES) * i
+        FillBitmap(bw, 0, 0, 0.7, cx, cy)
+        bw.Save(os.path.join(base_dir, '%03d.bmp' % i))
+
+
+def DrawJuliaCircle(cx, cy, r):
+    base_dir = os.path.join('julia', 'animated')
+    if not os.path.isdir(base_dir):
+        os.makedirs(base_dir)
+    bw = bitmap.BitmapWriter(mandelbrot.IMG_WIDTH, mandelbrot.IMG_HEIGHT)
+    for i in range(NUM_FRAMES):
+        d_theta = 360.0 / float(NUM_FRAMES) * i
+        # d / 180 = r / pi -> r = d * pi / 180
+        theta = d_theta * math.pi / 180.0
+        x = cx + r * math.cos(theta)
+        y = cy + r * math.sin(theta)
+        FillBitmap(bw, 0, 0, 0.7, x, y)
+        bw.Save(os.path.join(base_dir, '%03d.bmp' % i))
 
 
 
@@ -48,6 +82,8 @@ def DoMain():
 
     DrawJulia(0, 0, 0.7, 0.4, 0.6)
     DrawJulia(0, 0, 0.7, -1.125, 0.21650635094611)
+
+    DrawJuliaCircle(-0.2, 0, 0.7)
 
 
 if __name__ == '__main__':

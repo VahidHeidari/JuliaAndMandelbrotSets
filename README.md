@@ -12,6 +12,11 @@ sets in Python.
 
  Screenshots:
 ==============
+Animated Julia sets:
+
+![Animated Julia sets](Images/julia_anim.gif?raw=true "Animated Julia sets")
+
+
 Mandelbrot set:
 
 ![Mandelbrot set](Images/mandelbrot/-0.50-0.00-1.00.jpg?raw=true "Mandelbrot set")
